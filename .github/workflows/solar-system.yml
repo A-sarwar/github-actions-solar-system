@@ -11,8 +11,6 @@ env:
     MONGO_URI: 'mongodb+srv://supercluster.d83jj.mongodb.net/superData'
     MONGO_USERNAME: superuser  
     MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
-
-    OWNER: ${{ github.repository_owner }}
     
 jobs:
     
@@ -83,23 +81,24 @@ jobs:
         - name: Checkout Repository
           uses: actions/checkout@v4
 
-        - name: Convert owner to lowercase
-          run: echo "owner_lower=$(echo '${OWNER}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV  
-
         - name: Login to Docker Hub
           uses: docker/login-action@v3
           with:
             registry: ghcr.io
             username: ${{ github.repository_owner }}
             password: ${{ secrets.GITHUB_TOKEN }}
+        
+            
+        - name: Set lowercase owner
+          run: echo "OWNER_LOWER=${GITHUB_REPOSITORY_OWNER,,}" >> $GITHUB_ENV   
 
         - name: Docker Build and push
           uses: docker/build-push-action@v6
           with:
             context: .
             push: true
-            
-            tags: 'ghcr.io/${{ owner_lower }}/solar-system:${{ github.sha }}'
+            tags: ghcr.io/${{ env.OWNER_LOWER }}/solar-system:${{ github.sha }}
+          
             
 
                
