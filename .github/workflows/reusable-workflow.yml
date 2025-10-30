@@ -6,14 +6,7 @@ on:
           description: Provide the Ingress URL
           required: true
           type: string    
-jobs:
-  integration-test:
-    runs-on: ubuntu-latest
-    needs: dev-deploy
-    uses: ./.github/workflows/reusable-workflow.yml
-    with:
-      ingress-url: ${{ needs.dev-deploy.outputs.APP_INGRESS_URL }}
-    
+
     steps:
      - env:
           URL: '${{ inputs.ingress-url }}'
