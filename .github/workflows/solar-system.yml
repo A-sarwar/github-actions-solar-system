@@ -124,6 +124,8 @@ jobs:
     integration-test:
        needs: dev-deploy
        uses: ./.github/workflows/reusable-workflow.yml
+       with:
+         ingress-url: ${{ vars.MONGO_URI}}
      
      
 
