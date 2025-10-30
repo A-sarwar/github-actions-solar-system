@@ -6,7 +6,11 @@ on:
           description: Provide the Ingress URL
           required: true
           type: string  
-         
+    outputs:
+      application-url:
+        value: ${{ jobs.integration-test.URL }}
+
+
 jobs:
   integration-test:
     runs-on: ubuntu-latest
@@ -14,7 +18,7 @@ jobs:
       - env:
           URL: '${{ inputs.ingress-url }}'
         run: |
-          curl https://$URL/live -s -k | jq -r .status | grep -i live
+              curl https://$URL/live -s -k | jq -r .status | grep -i live
 
 
       

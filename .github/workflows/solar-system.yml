@@ -126,7 +126,7 @@ jobs:
        uses: ./.github/workflows/reusable-workflow.yml
        with:
          #ingress-url: ${{ vars.MONGO_URI}}
-         ingress-url: ${{ needs.dev-deploy.outputs.MONGO_URI }}
+         ingress-url: ${{ needs.dev-deploy.outputs.application-url }}
 
 
    
