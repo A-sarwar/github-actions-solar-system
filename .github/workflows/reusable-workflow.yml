@@ -26,8 +26,8 @@ jobs:
               # echo "✅ Checking endpoint: https://$URL/live"
               # curl https://$URL/live -s -k | jq -r .status | grep -i live
 
-              echo "Testing Mongo connection..."
-              mongosh "$URL" --eval "db.runCommand({ ping: 1 })"
+              echo "Testing Mongo connection via Docker..."
+              docker run --rm mongo:7.0 mongosh "$URL" --eval "db.runCommand({ ping: 1 })"
              
 
 
